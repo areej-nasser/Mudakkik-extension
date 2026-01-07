@@ -116,6 +116,4 @@ Mudakkik is a collaborative project built by a dedicated team:
 
 ---
 
-## ❤️
-
-Made with love, curiosity, and a passion for fighting misinformation.
+Made with ❤️, curiosity, and a passion for fighting misinformation.
