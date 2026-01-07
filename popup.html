@@ -1,276 +1,3 @@
-<!--<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      width: 400px;
-      min-height: 300px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      padding: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #333;
-    }
-    
-    .container {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    
-    h1 {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: #667eea;
-      text-align: center;
-    }
-    
-    .settings-section {
-      margin-bottom: 20px;
-    }
-    
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #555;
-    }
-    
-    input[type="text"], input[type="password"], textarea {
-      width: 100%;
-      padding: 8px 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: 6px;
-      font-size: 13px;
-      transition: border-color 0.3s;
-    }
-    
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-    
-    textarea {
-      resize: vertical;
-      min-height: 60px;
-      font-family: inherit;
-    }
-    
-    .btn {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      margin-top: 10px;
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-    
-    .btn-check {
-      background: #10b981;
-      color: white;
-      margin-top: 15px;
-    }
-    
-    .btn-check:hover {
-      background: #059669;
-    }
-    
-    .result-section {
-      display: none;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 2px solid #e0e0e0;
-    }
-    
-    .verdict-box {
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-    
-    .verdict-true {
-      background: #d1fae5;
-      border-left: 4px solid #10b981;
-    }
-    
-    .verdict-false {
-      background: #fee2e2;
-      border-left: 4px solid #ef4444;
-    }
-    
-    .verdict-uncertain {
-      background: #fef3c7;
-      border-left: 4px solid #f59e0b;
-    }
-    
-    .percentage {
-      font-size: 32px;
-      font-weight: bold;
-      text-align: center;
-      margin: 15px 0;
-    }
-    
-    .verdict-text {
-      font-weight: 600;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-    
-    .explanation {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #555;
-    }
-    
-    .sources {
-      margin-top: 15px;
-    }
-    
-    .sources h3 {
-      font-size: 14px;
-      margin-bottom: 10px;
-      color: #667eea;
-    }
-    
-    .source-link {
-      display: block;
-      padding: 8px;
-      margin-bottom: 5px;
-      background: #f3f4f6;
-      border-radius: 4px;
-      text-decoration: none;
-      color: #667eea;
-      font-size: 12px;
-      transition: background 0.2s;
-    }
-    
-    .source-link:hover {
-      background: #e5e7eb;
-    }
-    
-    .loading {
-      text-align: center;
-      padding: 20px;
-      display: none;
-    }
-    
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #667eea;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 10px;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .error {
-      background: #fee2e2;
-      color: #991b1b;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 13px;
-      margin-top: 10px;
-      display: none;
-    }
-    
-    .success {
-      background: #d1fae5;
-      color: #065f46;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 13px;
-      margin-top: 10px;
-      display: none;
-    }
-
-    .selected-text {
-      background: #f3f4f6;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      font-style: italic;
-      color: #555;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>🔍 AI Fact Checker</h1>  
-    <!-- <div id="settings" class="settings-section">
-      <div style="margin-bottom: 15px;">
-        <label for="tavilyKey">Tavily API Key:</label>
-        <input type="password" id="tavilyKey" placeholder="tvly-...">
-      </div> -->
-
-<!-- <div style="margin-bottom: 15px;">
-        <label for="groqKey">Groq API Key:</label>
-        <input type="password" id="groqKey" placeholder="gsk_...">
-      </div>
-       -->
-<!-- <div style="margin-bottom: 15px;">
-        <label for="domains">Trusted Domains (comma-separated):</label>
-        <textarea id="domains" placeholder="bbc.com, reuters.com, apnews.com"></textarea>
-      </div>
-       -->
-<!-- <button class="btn btn-primary" id="saveBtn">Save Settings</button>
-      <div class="success" id="successMsg">Settings saved successfully!</div> -->
-<!-- <div class="error" id="errorMsg"></div>
-    </div>
-    
-    <button class="btn btn-check" id="checkBtn">Check Selected Text</button>
-    
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      <div>Analyzing...</div>
-    </div>
-    
-    <div class="result-section" id="results">
-      <div id="selectedTextDiv" class="selected-text"></div>
-      <div id="verdictBox" class="verdict-box">
-        <div class="percentage" id="percentage"></div>
-        <div class="verdict-text" id="verdict"></div>
-        <div class="explanation" id="explanation"></div>
-      </div>
-      <div class="sources" id="sources"></div>
-    </div>
-  </div>
-  
-  <script src="popup.js"></script>
-</body>
-</html> -->
-
-<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
-
-<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -280,36 +7,51 @@
   </head>
 
   <body>
-    <div class="card">
-      <header class="card-header">
-        <h1>AI Fact Checker</h1>
-        <p class="subtitle">Verify information instantly</p>
-      </header>
-
-      <button id="checkBtn" class="btn-primary">Check Selected Text</button>
-
-      <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <span>Analyzing...</span>
-      </div>
-
-      <section id="results" class="results hidden">
-        <div class="selected-text" id="selectedTextDiv"></div>
-
-        <div id="verdictBox" class="verdict neutral">
-          <div class="percentage" id="percentage">–%</div>
-          <div class="verdict-title" id="verdict">Uncertain</div>
-          <p class="verdict-desc" id="explanation"></p>
-        </div>
-
-        <div class="sources" id="sources">
-          <h3>Sources</h3>
-        </div>
-      </section>
-
-      <div class="error hidden" id="errorMsg"></div>
+    <div id="auth" class="card">
+      <h1>Welcome</h1>
+      <p class="subtitle">Sign in to continue</p>
+      <input id="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
+      <button id="loginBtn" class="btn-primary">Login</button>
+      <p class="signup-link">
+        Don't have an account?
+        <a href="https://mudakkik.ddns.net/register" target="_blank">Sign up</a>
+      </p>
     </div>
 
-    <script src="popup.js"></script>
+    <div id="app" style="display: none">
+      <button id="logoutBtn">Logout</button>
+      <div class="card">
+        <header class="card-header">
+          <h1>AI Fact Checker</h1>
+          <p class="subtitle">Verify information instantly</p>
+        </header>
+
+        <button id="checkBtn" class="btn-primary">Check Selected Text</button>
+
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          <span>Analyzing...</span>
+        </div>
+
+        <section id="results" class="results hidden">
+          <div class="selected-text" id="selectedTextDiv"></div>
+
+          <div id="verdictBox" class="verdict neutral">
+            <div class="percentage" id="percentage">–%</div>
+            <div class="verdict-title" id="verdict">Uncertain</div>
+            <p class="verdict-desc" id="explanation"></p>
+          </div>
+
+          <div class="sources" id="sources">
+            <h3>Sources</h3>
+          </div>
+        </section>
+
+        <div class="error hidden" id="errorMsg"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/popup.js"></script>
   </body>
 </html>

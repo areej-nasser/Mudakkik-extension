@@ -3,8 +3,12 @@
   "name": "AI Fact Checker",
   "version": "1.0",
   "description": "Fact-check selected text using Tavily search and Groq AI",
-  "permissions": ["activeTab", "contextMenus", "storage"],
-  "host_permissions": ["https://api.tavily.com/*", "https://api.groq.com/*"],
+  "permissions": ["activeTab", "contextMenus", "storage", "scripting"],
+  "host_permissions": [
+    "https://api.tavily.com/*",
+    "https://api.groq.com/*",
+    "https://mudakkik.ddns.net/api/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
