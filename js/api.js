@@ -1,17 +1,17 @@
 const API_URL = "https://mudakkik.ddns.net/api";
 
-export async function verifyNews(text, token) {
+export async function verifyNews(content, token) {
     const res = await fetch(`${API_URL}/verify-news`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify({ content: text })
+        body: JSON.stringify({ "text": content })
     });
 
-    if (!res.ok) throw new Error("API failed");
+    if (!res.ok) throw new Error("API failed" + " " + res);
 
     return await res.json();
 }

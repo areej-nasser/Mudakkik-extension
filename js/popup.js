@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const data = await verifyNews(res.text.trim(), token);
 
             hideLoading();
-            renderResults(res.text.trim(), data);
+            renderResults(res.text.trim(), data.result);
         } catch (e) {
             hideLoading();
             showError(e.message);
@@ -72,7 +72,7 @@ document.getElementById("checkBtn").addEventListener("click", async () => {
             showLoading();
             const data = await verifyNews(res.text, token);
             hideLoading();
-            renderResults(res.text, data);
+            renderResults(res.text, data.result);
         });
 
     } catch (e) {
