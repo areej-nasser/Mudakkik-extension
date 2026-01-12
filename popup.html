@@ -20,7 +20,17 @@
     </div>
 
     <div id="app" style="display: none">
-      <button id="logoutBtn">Logout</button>
+      <!-- User information[name] will be displayed here -->
+      <div id="userInfo" class="user-info">
+        <div class="user-avatar" id="userAvatar"></div>
+        <div class="user-details">
+          <span class="welcome">Welcome</span>
+          <span id="userName" class="user-name"></span>
+        </div>
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+      </div>
+
+      <!-- Main content -->
       <div class="card">
         <header class="card-header">
           <h1>AI Fact Checker</h1>

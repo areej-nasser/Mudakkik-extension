@@ -32,6 +32,25 @@ export function clearError() {
     errorMsg.classList.add("hidden");
 }
 
+export function renderUser(user) {
+    const userNameEl = document.getElementById("userName");
+    const avatarEl = document.getElementById("userAvatar");
+
+    userNameEl.textContent = user.name ?? "User";
+    // append avatar image if available
+    if (user.avatar) {
+        const img = document.createElement("img");
+        img.src = `https://mudakkik.ddns.net/storage/${user.avatar}`;
+        img.alt = "Avatar";
+        img.width = 32;
+        img.height = 32;
+        avatarEl.innerHTML = "";
+        avatarEl.appendChild(img);
+    } else {
+        avatarEl.textContent = user.name.charAt(0).toUpperCase();
+    }
+}
+
 export function renderResults(text, data) {
     document.getElementById("selectedTextDiv").textContent = `"${text}"`;
 

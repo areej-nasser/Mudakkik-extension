@@ -224,24 +224,25 @@ body {
 #logoutBtn {
   background: transparent;
   border: none;
-  color: var(--muted);
   font-size: 13px;
   cursor: pointer;
-  margin: 0 0 10px auto;
-  display: block;
-  padding: 10px;
+  margin: 0 0 0 auto;
+  padding: 7px;
   border-radius: 8px;
   transition: all 0.2s ease;
-  /* position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%); */
 }
 
 #logoutBtn:hover {
-  /* background-color: #991b1b; */
   background-color: #ac0c1a;
   color: white;
+}
+
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #ac0c1a;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 input {
@@ -279,8 +280,9 @@ input {
 }
 
 .history-btn:hover {
-  background: #f1f5f9;
-  color: #020617;
+  /* background: #f1f5f9; */
+  background: var(--card);
+  color: var(--text);
 }
 
 .history-btn svg {
@@ -289,4 +291,44 @@ input {
 
 .history-btn:hover svg {
   opacity: 1;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  background: var(--card);
+  /* background: #f9fafb; */
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.user-details {
+  flex: 1;
+  line-height: 1.2;
+}
+
+.welcome {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text);
 }

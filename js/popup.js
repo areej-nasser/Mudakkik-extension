@@ -1,7 +1,8 @@
-import { login, logout, verifyNews } from "./api.js";
-import { saveToken, getToken, isAuthenticated, clearAuth } from "./auth.js";
-import { showAuth, showApp, showLoading, hideLoading, showError, clearError, renderResults } from "./ui.js";
+import { login, logout, verifyNews, user as apiUser } from "./api.js";
+import { saveToken, getToken, isAuthenticated, clearAuth, getUser, saveUser } from "./auth.js";
+import { showAuth, showApp, showLoading, hideLoading, showError, clearError, renderResults, renderUser } from "./ui.js";
 
+/* ---------- INITIALIZATION ---------- */
 document.addEventListener("DOMContentLoaded", async () => {
     const authenticated = await isAuthenticated();
     if (!authenticated) {
@@ -10,16 +11,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     showApp();
+    const currentUser = await getUser();
+    renderUser(currentUser);
 
     // Auto fact check on popup open if text is selected
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
     chrome.tabs.sendMessage(tab.id, { action: "getSelectedText" }, async (res) => {
         if (!res?.text?.trim()) return;
-
         try {
             showLoading();
-
             const token = await getToken();
             const data = await verifyNews(res.text.trim(), token);
 
@@ -43,7 +44,10 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
         clearError();
         const data = await login(email, password);
         await saveToken(data.token);
+        const user = await apiUser(data.token);
+        await saveUser(user.user);
         showApp();
+        renderUser(user.user);
         clearError();
 
     } catch (e) {
@@ -67,7 +71,8 @@ document.getElementById("checkBtn").addEventListener("click", async () => {
 
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
         chrome.tabs.sendMessage(tab.id, { action: "getSelectedText" }, async (res) => {
-            if (!res?.text) return showError("Select text first");
+
+            if (!res?.text) return showError("Please refresh the page or select text first");
 
             showLoading();
             const data = await verifyNews(res.text, token);

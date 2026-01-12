@@ -44,3 +44,16 @@ export async function logout(token) {
         }
     });
 }
+
+export async function user(token) {
+    const res = await fetch(`${API_URL}/user`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    });
+    if (!res.ok) throw new Error("API failed: Could not fetch user");
+    return await res.json();
+}
