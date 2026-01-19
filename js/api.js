@@ -1,6 +1,6 @@
 const API_URL = "https://mudakkik.ddns.net/api";
 
-export async function verifyNews(content, token) {
+export async function verifyNews(content, token, period = 3) {
     const res = await fetch(`${API_URL}/verify-news`, {
         method: "POST",
         headers: {
@@ -10,11 +10,14 @@ export async function verifyNews(content, token) {
         },
         body: JSON.stringify({
             "text": content,
-            "period": 365
+            "period": period
         })
     });
 
-    if (!res.ok) throw new Error("API failed" + " " + res);
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || `Error ${res.status}: ${res.statusText}`);
+    }
 
     return await res.json();
 }
@@ -29,7 +32,10 @@ export async function login(email, password) {
         body: JSON.stringify({ email, password })
     });
 
-    if (!res.ok) throw new Error("API failed: Invalid credentials");
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || "Invalid credentials");
+    }
 
     return await res.json();
 }
@@ -54,6 +60,12 @@ export async function user(token) {
             "Accept": "application/json"
         }
     });
-    if (!res.ok) throw new Error("API failed: Could not fetch user");
+
+    if (!res.ok) {
+        if (res.status === 401) throw new Error("Unauthenticated");
+
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || "Could not fetch user");
+    }
     return await res.json();
 }
